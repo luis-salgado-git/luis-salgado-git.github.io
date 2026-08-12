@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luis Javier Salgado Díaz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #12141a;
+    --panel: #191c24;
+    --panel-2: #1f232c;
+    --border: #2a2f3a;
+    --text: #e7e9ee;
+    --muted: #838b9c;
+    --accent: #5eead4;
+    --accent-2: #f2b866;
+    --line: #363c48;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    min-height:100vh;
+    line-height:1.6;
+  }
+  .app{
+    display:grid;
+    grid-template-columns:240px 1fr;
+    min-height:100vh;
+  }
+
+  .sidebar{
+    background:var(--panel);
+    border-right:1px solid var(--border);
+    padding:28px 0;
+    position:sticky;
+    top:0;
+    height:100vh;
+  }
+  .sidebar-header{
+    padding:0 20px 20px 20px;
+    border-bottom:1px solid var(--border);
+    margin-bottom:16px;
+  }
+  .sidebar-header .dot-row{
+    display:flex;
+    gap:6px;
+    margin-bottom:14px;
+  }
+  .dot{width:11px; height:11px; border-radius:50%;}
+  .dot.red{background:#ff5f56;}
+  .dot.yellow{background:#ffbd2e;}
+  .dot.green{background:#27c93f;}
+  .sidebar-header .name{
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    font-weight:700;
+    color:var(--text);
+  }
+  .sidebar-header .role{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:4px;
+  }
+  .file-tree{
+    list-style:none;
+    padding:0 12px;
+  }
+  .file-tree li{
+    margin-bottom:2px;
+  }
+  .file-tree a{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 12px;
+    color:var(--muted);
+    text-decoration:none;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    border-radius:6px;
+    transition:background .15s, color .15s;
+  }
+  .file-tree a:hover, .file-tree a.active{
+    background:var(--panel-2);
+    color:var(--accent);
+  }
+  .file-tree .ext{color:var(--accent-2); opacity:.75;}
+
+
+  main{
+    padding:48px 56px;
+    max-width:840px;
+  }
+  .tabs{
+    display:flex;
+    gap:2px;
+    margin-bottom:0;
+    border-bottom:1px solid var(--border);
+  }
+  .tab{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--muted);
+    padding:10px 16px;
+    background:var(--panel-2);
+    border:1px solid var(--border);
+    border-bottom:none;
+    border-radius:6px 6px 0 0;
+  }
+  .tab.active{color:var(--accent); background:var(--bg);}
+
+  section{
+    padding:36px 0 56px 0;
+    border-bottom:1px dashed var(--border);
+  }
+  section:last-child{border-bottom:none;}
+
+  .line-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--line);
+    user-select:none;
+  }
+
+  h1{
+    font-family:'JetBrains Mono', monospace;
+    font-size:34px;
+    font-weight:700;
+    letter-spacing:-0.5px;
+    margin:6px 0 4px 0;
+  }
+  h1 .prompt{color:var(--accent);}
+  .subtitle{
+    font-size:16px;
+    color:var(--muted);
+    margin-bottom:22px;
+  }
+  .status-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--accent);
+    background:rgba(94,234,212,0.08);
+    border:1px solid rgba(94,234,212,0.25);
+    padding:6px 12px;
+    border-radius:20px;
+  }
+  .status-badge .pulse{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 0 rgba(94,234,212,0.6);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(94,234,212,0.5);}
+    70%{box-shadow:0 0 0 8px rgba(94,234,212,0);}
+    100%{box-shadow:0 0 0 0 rgba(94,234,212,0);}
+  }
+
+  .sobre_mi-text{
+    font-size:16px;
+    color:var(--text);
+    max-width:640px;
+    margin-top:20px;
+  }
+
+  h2{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    color:var(--accent-2);
+    margin-bottom:20px;
+  }
+  h2 .comment{color:var(--muted); text-transform:none; letter-spacing:0; font-weight:400;}
+
+
+  .json-block{
+    font-family:'JetBrains Mono', monospace;
+    font-size:14.5px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:24px 28px;
+    overflow-x:auto;
+  }
+  .json-block .k{color:var(--accent);}
+  .json-block .s{color:var(--accent-2);}
+  .json-block .p{color:var(--muted);}
+  .json-block .b{color:var(--text);}
+  .json-line{white-space:pre;}
+
+
+  .project-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+    margin-top:20px;
+  }
+  .project-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+  .project-shot{
+    aspect-ratio:16/9;
+    background:var(--panel-2);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--line);
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    text-align:center;
+    padding:16px;
+  }
+  .project-shot img{
+    width:100%; height:100%; object-fit:cover;
+  }
+  .project-shot.placeholder{
+    border:1px dashed var(--line);
+    margin:8px;
+    border-radius:6px;
+  }
+  .project-body{
+    padding:18px 20px;
+  }
+  .project-tag{
+    display:inline-block;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--accent);
+    background:rgba(94,234,212,0.08);
+    border:1px solid rgba(94,234,212,0.2);
+    padding:3px 9px;
+    border-radius:4px;
+    margin-bottom:10px;
+  }
+  .project-tag.wip{color:var(--accent-2); background:rgba(242,184,102,0.08); border-color:rgba(242,184,102,0.2);}
+  .project-title{
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  .project-desc{
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  .project-stack{
+    margin-top:12px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--line);
+  }
+  @media (max-width:600px){
+    .project-grid{grid-template-columns:1fr;}
+  }
+
+
+  .terminal{
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    background:#0d0f13;
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:22px 26px;
+  }
+  .terminal .row{margin-bottom:10px; display:flex; gap:10px; flex-wrap:wrap;}
+  .terminal .prompt-sym{color:var(--accent);}
+  .terminal .cmd{color:var(--text);}
+  .terminal a{color:var(--accent-2); text-decoration:none;}
+  .terminal a:hover{text-decoration:underline;}
+  .terminal .out{color:var(--muted); padding-left:20px;}
+
+  footer{
+    padding:24px 56px 40px 56px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    color:var(--line);
+  }
+
+  @media (max-width:760px){
+    .app{grid-template-columns:1fr;}
+    .sidebar{position:relative; height:auto;}
+    main{padding:32px 22px;}
+    h1{font-size:26px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <div class="dot-row">
+        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+      </div>
+      <div class="name">luis-salgado</div>
+      <div class="role">~/portfolio</div>
+    </div>
+    <ul class="file-tree">
+      <li><a href="#sobre_mi" class="active">sobre_mi<span class="ext"></span></a></li>
+      <li><a href="#projects">proyectos</a></li>
+      <li><a href="#tecnologias">tecnologias<span class="ext"></span></a></li>
+      <li><a href="#contact">contact<span class="ext"></span></a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="tabs">
+      <div class="tab active">sobre_mi</div>
+    </div>
+
+    <section id="sobre_mi">
+      <div class="line-label"></div>
+      <h1><span class="prompt">&gt;</span> Luis Javier Salgado Díaz</h1>
+      <div class="subtitle">Grado Superior en Desarrollo de Aplicaciones Multiplataforma (DAM)</div>
+
+      <span class="status-badge"><span class="pulse"></span>Disponible</span>
+
+      <p class="sobre_mi-text">
+        Con formación práctica en desarrollo de software, bases de datos y aplicaciones multiplataforma.
+        </p>
+    </section>
+
+    <section id="projects">
+      <h2>proyectos/</h2>
+      <div class="project-grid">
+
+        <div class="project-card">
+          <div class="project-shot placeholder">
+
+          </div>
+          <div class="project-body">
+            <span class="project-tag wip">En desarrollo</span>
+            <div class="project-title">Juego de terror multijugador online</div>
+            <p class="project-desc">
+              Proyecto propio en desarrollo. Más de 6 meses de desarrollo. Demo jugable próximamente en itch.io.
+            </p>
+            <div class="project-stack">Unity · C# · Blender</div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-shot placeholder">
+            [ captura del proyecto aquí ]
+          </div>
+          <div class="project-body">
+            <span class="project-tag">Proyecto académico</span>
+            <div class="project-title">Por subir</div>
+            <p class="project-desc">
+              Espacio reservado para proyectos de DAM. 
+            </p>
+            <div class="project-stack">—</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="tecnologias">
+      <h2>tecnologias</h2>
+      <div class="json-block">
+<div class="json-line"><span class="p">{</span></div>
+<div class="json-line">  <span class="k">"lenguajes"</span><span class="p">:</span> <span class="b">[</span><span class="s">"Java"</span><span class="p">,</span> <span class="s">"Python"</span><span class="p">,</span> <span class="s">"C#"</span><span class="p">,</span> <span class="s">"SQL"</span><span class="p">,</span> <span class="s">"PHP"</span><span class="p">,</span> <span class="s">"JavaScript"</span><span class="b">]</span><span class="p">,</span></div>
+<div class="json-line">  <span class="k">"web"</span><span class="p">:</span> <span class="b">[</span><span class="s">"HTML"</span><span class="p">,</span> <span class="s">"CSS"</span><span class="p">,</span> <span class="s">"JavaScript"</span><span class="p">,</span> <span class="s">"PHP"</span><span class="b">]</span><span class="p">,</span></div>
+<div class="json-line">  <span class="k">"mobile"</span><span class="p">:</span> <span class="b">[</span><span class="s">"Android Studio"</span><span class="b">]</span><span class="p">,</span></div>
+<div class="json-line">  <span class="k">"herramientas"</span><span class="p">:</span> <span class="b">[</span><span class="s">"Unity"</span><span class="p">,</span> <span class="s">"Blender"</span><span class="b">]</span></div>
+<div class="json-line"><span class="p">}</span></div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contacto</h2>
+      <div class="terminal">
+        <div class="row">
+          <span class="prompt-sym">$</span>
+          <span class="cmd">cat email.txt</span>
+        </div>
+        <div class="out"><a href="mailto:luisjavier2633@gmail.com">luisjavier2633@gmail.com</a></div>
+
+        <div class="row">
+          <span class="prompt-sym">$</span>
+          <span class="cmd">open github</span>
+        </div>
+        <div class="out"><a href="https://github.com/luis-salgado-git" target="_blank" rel="noopener">github.com/luis-salgado-git</a></div>
+
+    </section>
+
+    <footer>
+      _
+    </footer>
+  </main>
+</div>
+
+</body>
+</html>
