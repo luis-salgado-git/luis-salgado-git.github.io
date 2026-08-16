@@ -60,6 +60,22 @@
     color:var(--muted);
     margin-top:4px;
   }
+  .lang-toggle{
+    margin-top:14px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.5px;
+    color:var(--accent);
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:6px 14px;
+    border-radius:20px;
+    cursor:pointer;
+    transition:background .15s, transform .1s;
+  }
+  .lang-toggle:hover{background:var(--panel-2);}
+  .lang-toggle:active{transform:scale(0.96);}
   .file-tree{
     list-style:none;
     padding:0 12px;
@@ -276,10 +292,6 @@
     line-height:1.75;
     max-width:64ch;
   }
-  .field-text.placeholder{
-    color:var(--muted);
-    font-style:italic;
-  }
 
   .project-meta{
     border-left:1px solid var(--border);
@@ -346,11 +358,12 @@
     <div class="sidebar-header">
       <div class="name">luis-salgado</div>
       <div class="role">portfolio</div>
+      <button id="lang-toggle" class="lang-toggle" type="button" aria-label="Switch language">EN</button>
     </div>
     <ul class="file-tree">
-      <li><a href="#sobre_mi" class="active">sobre_mi<span class="ext"></span></a></li>
-      <li><a href="#projects">proyectos</a></li>
-      <li><a href="#tecnologias">tecnologias<span class="ext"></span></a></li>
+      <li><a href="#sobre_mi" class="active"><span data-i18n="nav-about">sobre_mi</span><span class="ext"></span></a></li>
+      <li><a href="#projects"><span data-i18n="nav-projects">proyectos</span></a></li>
+      <li><a href="#tecnologias"><span data-i18n="nav-tech">tecnologias</span><span class="ext"></span></a></li>
       <li><a href="#contact">contact<span class="ext"></span></a></li>
     </ul>
   </nav>
@@ -359,17 +372,17 @@
     <section id="sobre_mi">
       <div class="line-label"></div>
       <h1><span class="prompt">&gt;</span> Luis Javier Salgado Díaz</h1>
-      <div class="subtitle">Grado Superior en Desarrollo de Aplicaciones Multiplataforma (DAM)</div>
+      <div class="subtitle" data-i18n="subtitle">Grado Superior en Desarrollo de Aplicaciones Multiplataforma (DAM)</div>
 
-      <span class="status-badge"><span class="pulse"></span>Disponible</span>
+      <span class="status-badge"><span class="pulse"></span><span data-i18n="status">Disponible</span></span>
 
-      <p class="sobre_mi-text">
+      <p class="sobre_mi-text" data-i18n="about-text">
         Con formación práctica en desarrollo de software, bases de datos y aplicaciones multiplataforma.
         </p>
     </section>
 
     <section id="projects">
-      <h2>proyectos/</h2>
+      <h2 data-i18n="h2-projects">proyectos/</h2>
       <div class="project-list">
 
         <!-- PROYECTO 1 -->
@@ -377,32 +390,31 @@
           <div class="project-media gallery">
             <img src="screenshots/Captura de pantalla 2026-08-09 040215.png" alt="Captura del juego 1">
             <img src="screenshots/Captura de pantalla 2026-08-11 031848.png" alt="Captura del juego 2">
-            <img src="screenshots/Captura de pantalla 2026-08-12 193604.png" alt="Captura del juego 3">
           </div>
-          <span class="media-hint">← desliza para ver más capturas →</span>
+          <span class="media-hint" data-i18n="media-hint">← desliza para ver más capturas →</span>
 
           <div class="project-header">
-            <div class="project-title">Juego de terror multijugador online</div>
-            <span class="project-tag wip">En desarrollo</span>
+            <div class="project-title" data-i18n="p1-title">Juego de terror multijugador online</div>
+            <span class="project-tag wip" data-i18n="p1-tag">En desarrollo</span>
           </div>
 
           <div class="project-body">
             <div class="project-fields">
               <div>
-                <div class="field-label">El proyecto</div>
-                <p class="field-text">
+                <div class="field-label" data-i18n="p1-label-1">El proyecto</div>
+                <p class="field-text" data-i18n="p1-text-1">
                   Desarrollo en solitario desde hace más de 6 meses de un juego de terror pensado para jugarse online con amigos. Me encargo de todo el ciclo: diseño, programación, modelado 3D y ambientación sonora, con el objetivo de sacar una primera demo jugable en itch.io.
                 </p>
               </div>
               <div>
-                <div class="field-label">Mi rol</div>
-                <p class="field-text">
+                <div class="field-label" data-i18n="p1-label-2">Mi rol</div>
+                <p class="field-text" data-i18n="p1-text-2">
                   Cada día en mi tiempo libre sigo una lista ordenada de tareas que pensado previamente para añadir al juego. Cada incorporación por ejemplo de una mecánica me suele llevar una semana o dos. 
                 </p>
               </div>
               <div>
-                <div class="field-label">Retos técnicos</div>
-                <p class="field-text">
+                <div class="field-label" data-i18n="p1-label-3">Retos técnicos</div>
+                <p class="field-text" data-i18n="p1-text-3">
                   Realmente cada simple detalle ha sido un reto técnico Quizás la programación se me hace más fácil que el arte, pero sigue siendo complicado el trabajo con Netcode para sincronizar el multijugador.
                 </p>
               </div>
@@ -417,8 +429,8 @@
                 </div>
               </div>
               <div class="meta-block">
-                <div class="field-label">Estado</div>
-                <p class="field-text" style="font-size:13.5px;">Demo jugable en preparación para itch.io</p>
+                <div class="field-label" data-i18n="p1-label-4">Estado</div>
+                <p class="field-text" style="font-size:13.5px;" data-i18n="p1-text-4">Demo jugable en preparación para itch.io</p>
               </div>
             </div>
           </div>
@@ -431,21 +443,21 @@
           </div>
 
           <div class="project-header">
-            <div class="project-title">Juego de Plataformas 2D</div>
-            <span class="project-tag">Finalizado</span>
+            <div class="project-title" data-i18n="p2-title">Juego de Plataformas 2D</div>
+            <span class="project-tag" data-i18n="p2-tag">Finalizado</span>
           </div>
 
           <div class="project-body">
             <div class="project-fields">
               <div>
-                <div class="field-label">El proyecto</div>
-                <p class="field-text">
+                <div class="field-label" data-i18n="p2-label-1">El proyecto</div>
+                <p class="field-text" data-i18n="p2-text-1">
                   Desarrollado en solitario para una GameJam, con plazo ajustado de entrega. Inspirado visualmente en la Isla de La Palma. Fue mi primer proyecto serio en Unity, tras el cual decidí seguir profundizando en desarrollo de videojuegos.
                 </p>
               </div>
               <div>
-                <div class="field-label">Mi rol</div>
-                <p class="field-text">
+                <div class="field-label" data-i18n="p2-label-2">Mi rol</div>
+                <p class="field-text" data-i18n="p2-text-2">
                   Lo novedoso para mí fue el desarrollo del pixel art. Hice un atlas 2D de sprites con una resolución de 16x16 pixeles con un resultado bastante satisfactorio. 
                 </p>
               </div>
@@ -470,21 +482,21 @@
           </div>
 
           <div class="project-header">
-            <div class="project-title">FanGame de Pokémon</div>
-            <span class="project-tag">Descartado</span>
+            <div class="project-title" data-i18n="p3-title">FanGame de Pokémon</div>
+            <span class="project-tag" data-i18n="p3-tag">Descartado</span>
           </div>
 
           <div class="project-body">
             <div class="project-fields">
               <div>
-                <div class="field-label">El proyecto</div>
-                <p class="field-text">
+                <div class="field-label" data-i18n="p3-label-1">El proyecto</div>
+                <p class="field-text" data-i18n="p3-text-1">
                   Proyecto propio inspirado en fangames de Pokémon orientados a una experiencia cooperativa entre jugadores.
                 </p>
               </div>
               <div>
-                <div class="field-label">Por qué se descartó</div>
-                <p class="field-text">
+                <div class="field-label" data-i18n="p3-label-2">Por qué se descartó</div>
+                <p class="field-text" data-i18n="p3-text-2">
                   Le dediqué un montón de horas y fue divertido, pero a la larga sentí que me iba a llevar mucho tiempo para un resultado decente y realmente el público objetivo solo éramos mi hermano y yo. Lo continuaría si mi economía me permitiera desarrollar sin preocuparme por el dinero.
                 </p>
                 </div>
@@ -506,19 +518,19 @@
     </section>
 
     <section id="tecnologias">
-      <h2>tecnologias</h2>
+      <h2 data-i18n="h2-tech">tecnologias</h2>
       <div class="json-block">
 <div class="json-line"><span class="p">{</span></div>
-<div class="json-line">  <span class="k">"lenguajes"</span><span class="p">:</span> <span class="b">[</span><span class="s">"Java"</span><span class="p">,</span> <span class="s">"Python"</span><span class="p">,</span> <span class="s">"C#"</span><span class="p">,</span> <span class="s">"SQL"</span><span class="p">,</span> <span class="s">"PHP"</span><span class="p">,</span> <span class="s">"JavaScript"</span><span class="b">]</span><span class="p">,</span></div>
+<div class="json-line">  <span class="k" data-i18n="json-lang">"lenguajes"</span><span class="p">:</span> <span class="b">[</span><span class="s">"Java"</span><span class="p">,</span> <span class="s">"Python"</span><span class="p">,</span> <span class="s">"C#"</span><span class="p">,</span> <span class="s">"SQL"</span><span class="p">,</span> <span class="s">"PHP"</span><span class="p">,</span> <span class="s">"JavaScript"</span><span class="b">]</span><span class="p">,</span></div>
 <div class="json-line">  <span class="k">"web"</span><span class="p">:</span> <span class="b">[</span><span class="s">"HTML"</span><span class="p">,</span> <span class="s">"CSS"</span><span class="p">,</span> <span class="s">"JavaScript"</span><span class="p">,</span> <span class="s">"PHP"</span><span class="b">]</span><span class="p">,</span></div>
 <div class="json-line">  <span class="k">"mobile"</span><span class="p">:</span> <span class="b">[</span><span class="s">"Android Studio"</span><span class="b">]</span><span class="p">,</span></div>
-<div class="json-line">  <span class="k">"herramientas"</span><span class="p">:</span> <span class="b">[</span><span class="s">"Unity"</span><span class="p">,</span> <span class="s">"Blender"</span><span class="b">]</span></div>
+<div class="json-line">  <span class="k" data-i18n="json-tools">"herramientas"</span><span class="p">:</span> <span class="b">[</span><span class="s">"Unity"</span><span class="p">,</span> <span class="s">"Blender"</span><span class="b">]</span></div>
 <div class="json-line"><span class="p">}</span></div>
       </div>
     </section>
 
     <section id="contact">
-      <h2>Contacto</h2>
+      <h2 data-i18n="h2-contact">Contacto</h2>
       <div class="terminal">
         <div class="row">
 
@@ -546,6 +558,69 @@
     </footer>
   </main>
 </div>
+
+<script>
+  // Traducciones al ingles
+  var translations = {
+    'nav-about': 'about_me',
+    'nav-projects': 'projects',
+    'nav-tech': 'technologies',
+    'subtitle': 'Higher Vocational Diploma in Multiplatform Application Development (DAM)',
+    'status': 'Available',
+    'about-text': 'Hands-on training in software development, databases, and multiplatform applications.',
+    'h2-projects': 'projects/',
+    'h2-tech': 'technologies',
+    'h2-contact': 'Contact',
+    'media-hint': '← swipe to see more screenshots →',
+    'p1-title': 'Online multiplayer horror game',
+    'p1-tag': 'In development',
+    'p1-label-1': 'The project',
+    'p1-text-1': 'Solo development for over 6 months of a horror game designed to be played online with friends. I handle the entire pipeline: design, programming, 3D modeling, and sound design, with the goal of releasing a first playable demo on itch.io.',
+    'p1-label-2': 'My role',
+    'p1-text-2': 'Every day, in my free time, I work through an ordered task list I plan in advance to add to the game. Implementing something like a single mechanic usually takes me a week or two.',
+    'p1-label-3': 'Technical challenges',
+    'p1-text-3': 'Honestly, every single detail has been a technical challenge. Programming probably comes more naturally to me than art, but working with Netcode to keep multiplayer in sync is still tough.',
+    'p1-label-4': 'Status',
+    'p1-text-4': 'Playable demo in progress for itch.io',
+    'p2-title': '2D Platformer',
+    'p2-tag': 'Completed',
+    'p2-label-1': 'The project',
+    'p2-text-1': 'Built solo for a Game Jam, under a tight deadline. Visually inspired by the island of La Palma. It was my first serious project in Unity, after which I decided to keep going deeper into game development.',
+    'p2-label-2': 'My role',
+    'p2-text-2': "The new challenge for me was creating the pixel art. I built a 2D sprite atlas at 16x16 pixel resolution, with a result I'm pretty happy with.",
+    'p3-title': 'Pokémon Fan Game',
+    'p3-tag': 'Discontinued',
+    'p3-label-1': 'The project',
+    'p3-text-1': 'A personal project inspired by Pokémon fan games built around a cooperative multiplayer experience.',
+    'p3-label-2': 'Why it was discontinued',
+    'p3-text-2': "I put a lot of hours into it and had fun, but eventually I realized it would take way too long to reach a decent result, and honestly the target audience was just my brother and me. I'd pick it back up if my finances let me develop without worrying about money.",
+    'json-lang': '"languages"',
+    'json-tools': '"tools"'
+  };
+
+  var toggleBtn = document.getElementById('lang-toggle');
+  var currentLang = localStorage.getItem('site-lang') || 'es';
+
+  function applyLang(lang){
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      if(!el.dataset.esOriginal){
+        el.dataset.esOriginal = el.textContent;
+      }
+      var key = el.getAttribute('data-i18n');
+      el.textContent = (lang === 'en' && translations[key]) ? translations[key] : el.dataset.esOriginal;
+    });
+    document.documentElement.lang = lang;
+    toggleBtn.textContent = lang === 'en' ? 'ES' : 'EN';
+    localStorage.setItem('site-lang', lang);
+    currentLang = lang;
+  }
+
+  toggleBtn.addEventListener('click', function(){
+    applyLang(currentLang === 'es' ? 'en' : 'es');
+  });
+
+  applyLang(currentLang);
+</script>
 
 </body>
 </html>
