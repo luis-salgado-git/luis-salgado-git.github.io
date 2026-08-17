@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard ERP - Demo Técnica</title>
     
-    <!-- Librerías externas (CDN) -->
+    <!-- Libreras externas-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
@@ -20,7 +20,7 @@
             --text-muted: #7f8c8d;
             --border: #e0e6ed;
             --terminal-bg: #1e1e1e;
-            --terminal-text: #4AF626;
+            --terminal-text: #blue;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -45,7 +45,7 @@
         .kpi-title { font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
         .kpi-value { font-size: 2rem; font-weight: 600; }
 
-        /* Tablas y Formularios */
+        /* Tablas y Formulario */
         .panel { background: var(--bg-panel); padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid var(--border); margin-bottom: 20px; }
         table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9rem; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); }
@@ -58,7 +58,7 @@
         button.btn-danger { background: #e74c3c; color: white; border: none; cursor: pointer; padding: 6px 12px; border-radius: 4px; }
 
         /* Consola SQL interactiva */
-        .sql-editor { width: 100%; height: 120px; background: var(--terminal-bg); color: var(--terminal-text); font-family: 'JetBrains Mono', monospace; padding: 15px; border: none; border-radius: 8px; resize: vertical; margin-bottom: 10px; font-size: 14px; }
+        .sql-editor { width: 100%; height: 140px; background: var(--terminal-bg); color: var(--terminal-text); font-family: 'JetBrains Mono', monospace; padding: 15px; border: none; border-radius: 8px; resize: vertical; margin-bottom: 10px; font-size: 14px; }
         .sql-error { color: #ff5252; background: #ffebee; padding: 10px; border-radius: 4px; display: none; margin-top: 10px; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
         .sql-hint { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; }
 
@@ -74,13 +74,13 @@
         <div class="sidebar-header">
             Dev. Corp Panel
         </div>
-        <button class="nav-btn active" onclick="switchView('dashboard')">📊 Dashboard</button>
-        <button class="nav-btn" onclick="switchView('crud')">📦 Gestión (CRUD)</button>
-        <button class="nav-btn" onclick="switchView('sql')">💻 Consola SQL en vivo</button>
+        <button class="nav-btn active" onclick="switchView('dashboard')">Dashboard</button>
+        <button class="nav-btn" onclick="switchView('crud')">Gestión (CRUD)</button>
+        <button class="nav-btn" onclick="switchView('sql')">Consola SQL en vivo</button>
     </nav>
 
     <main class="main-content">
-        <!-- VISTA 1: DASHBOARD -->
+
         <div id="dashboard" class="view active">
             <h1>Panel de Control</h1>
             <div class="kpi-grid">
@@ -93,7 +93,7 @@
             </div>
         </div>
 
-        <!-- VISTA 2: GESTIÓN CRUD -->
+
         <div id="crud" class="view">
             <h1>Gestión de Almacén</h1>
             <div class="panel">
@@ -124,14 +124,14 @@
             </div>
 
             <div class="panel">
-                <h3>Listado de Productos (Tabla Relacional)</h3>
+                <h3>Listado de Productos</h3>
                 <div id="table-container"></div>
             </div>
         </div>
 
-        <!-- VISTA 3: CONSOLA SQL -->
+
         <div id="sql" class="view">
-            <h1>Consola SQL (Ejecución en cliente)</h1>
+            <h1>Consola SQL</h1>
             <p class="sql-hint">La base de datos SQLite se está ejecutando directamente en la memoria de tu navegador usando WebAssembly. Prueba a ejecutar consultas reales.</p>
             <div class="panel">
                 <textarea id="sql-input" class="sql-editor">
@@ -183,10 +183,10 @@ ORDER BY Valor_Total DESC;</textarea>
 
             document.getElementById('loader').style.display = 'none';
             refreshAllViews();
-            executeCustomSQL(); // Ejecuta la consola la primera vez
+            executeCustomSQL(); 
         }
 
-        // 2. Lógica de Interfaz y Navegación
+
         function switchView(viewId) {
             document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
@@ -197,9 +197,9 @@ ORDER BY Valor_Total DESC;</textarea>
             if(viewId === 'dashboard' || viewId === 'crud') refreshAllViews();
         }
 
-        // 3. Renderizar Dashboard (Gráficos y KPIs)
+
         function refreshAllViews() {
-            // Actualizar KPIs
+
             const totalProd = db.exec("SELECT SUM(stock) FROM productos")[0].values[0][0];
             const valorTotal = db.exec("SELECT SUM(stock * precio) FROM productos")[0].values[0][0];
             const catActivas = db.exec("SELECT COUNT(DISTINCT categoria_id) FROM productos")[0].values[0][0];
@@ -208,7 +208,6 @@ ORDER BY Valor_Total DESC;</textarea>
             document.getElementById('kpi-valor').innerText = valorTotal.toFixed(2) + ' €';
             document.getElementById('kpi-cat').innerText = catActivas;
 
-            // Renderizar Gráfico
             const chartData = db.exec(`
                 SELECT c.nombre, SUM(p.stock) 
                 FROM productos p 
@@ -234,7 +233,6 @@ ORDER BY Valor_Total DESC;</textarea>
             renderCrudTable();
         }
 
-        // 4. Lógica CRUD (Create, Read, Delete)
         function renderCrudTable() {
             const result = db.exec(`
                 SELECT p.id, p.nombre, c.nombre AS categoria, p.stock, p.precio 
@@ -264,7 +262,6 @@ ORDER BY Valor_Total DESC;</textarea>
             }
         }
 
-        // 5. Consola SQL Interactiva
         function executeCustomSQL() {
             const query = document.getElementById('sql-input').value;
             const errDiv = document.getElementById('sql-error');
@@ -297,7 +294,7 @@ ORDER BY Valor_Total DESC;</textarea>
                 html += '<tr>';
                 row.forEach(val => html += `<td>${val}</td>`);
                 if (isCrud) {
-                    const id = row[0]; // Asumimos que la columna 0 es el ID
+                    const id = row[0];
                     html += `<td><button class="btn-danger" onclick="deleteProduct(${id})">Borrar</button></td>`;
                 }
                 html += '</tr>';
