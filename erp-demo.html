@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard ERP - Demo Técnica</title>
+    <title>Dashboard ERP</title>
     
     <!-- Libreras externas-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
@@ -68,7 +68,7 @@
 </head>
 <body>
 
-    <div id="loader">Cargando base de datos SQLite (WASM)...</div>
+    <div id="loader">Cargando base de datos SQLite</div>
 
     <nav class="sidebar">
         <div class="sidebar-header">
@@ -159,8 +159,6 @@ ORDER BY Valor_Total DESC;</textarea>
     <script>
         let db;
         let chartInstance = null;
-
-        // 1. Inicializar la base de datos (WASM)
         async function initApp() {
             const SQL = await initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}` });
             db = new SQL.Database();
@@ -279,7 +277,6 @@ ORDER BY Valor_Total DESC;</textarea>
             }
         }
 
-        // Helper: Generador de tablas HTML desde resultado de sql.js
         function generateHTMLTable(sqlResult, isCrud) {
             if (sqlResult.length === 0) return "<p style='padding:10px; color:#7f8c8d;'>No hay registros devueltos.</p>";
             const cols = sqlResult[0].columns;
