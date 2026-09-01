@@ -400,9 +400,9 @@
     </div>
     <ul class="file-tree">
       <li><a href="#sobre_mi" class="active"><span data-i18n="nav-about">sobre_mi</span><span class="ext"></span></a></li>
-      <li><a href="#projects"><span data-i18n="nav-projects">proyectos</span></a></li>
       <li><a href="#tecnologias"><span data-i18n="nav-tech">tecnologias</span><span class="ext"></span></a></li>
       <li><a href="#contact">contact<span class="ext"></span></a></li>
+      <li><a href="TU_PAGINA_DE_VIDEOJUEGOS.html"><span data-i18n="nav-games">videojuegos</span><span class="ext"></span></a></li>
     </ul>
   </nav>
 
@@ -412,61 +412,35 @@
       <h1><span class="prompt">&gt;</span> Luis Javier Salgado Díaz</h1>
       <div class="subtitle" data-i18n="subtitle">Grado Superior de Desarrollo de Aplicaciones Multiplataforma (DAM)</div>
 
-      <span class="status-badge"><span class="pulse"></span><span data-i18n="status">Disponible</span></span>
+      <span class="status-badge" style="margin-bottom: 30px;"><span class="pulse"></span><span data-i18n="status">Disponible</span></span>
 
-      <p class="sobre_mi-text" data-i18n="about-text">
-        Especializado en la creación de arquitecturas limpias, gestión de bases de datos relacionales y desarrollo de aplicaciones multiplataforma eficientes.
-      </p>
-    </section>
-
-    <section id="projects">
-      <h2 data-i18n="h2-projects">software/</h2>
-      <div class="project-list">
-
-        <!-- PROYECTO SOFTWARE: ERP -->
-        <div class="project-feature">
-          <div class="project-media">
-            <img src="screenshots/Capturasql.PNG">
+      <div class="project-body" style="grid-template-columns: 1fr;"> 
+        <div class="project-fields">
+          
+          <div>
+            <div class="field-label" data-i18n="label-who">Quién soy</div>
+            <p class="field-text" data-i18n="text-who">
+              [Escribe aquí tu introducción personal. Habla de tu pasión por la programación de software, tu enfoque para resolver problemas y qué tipo de profesional eres. Sé directo y honesto.]
+            </p>
           </div>
 
-          <div class="project-header">
-            <div class="project-title" data-i18n="p1-title">Dashboard de Gestión ERP interactivo</div>
-            <span class="project-tag" data-i18n="p1-tag">Completado</span>
+          <div>
+            <div class="field-label" data-i18n="label-edu">Formación y Habilidades</div>
+            <p class="field-text" data-i18n="text-edu">
+              [Detalla aquí lo que has estudiado, como tu ciclo de DAM, y cómo enfocas tus habilidades analíticas y técnicas (como arquitecturas limpias y bases de datos) en el desarrollo diario.]
+            </p>
           </div>
 
-          <div class="project-body">
-            <div class="project-fields">
-              <div>
-                <div class="field-label" data-i18n="p1-label-1">El proyecto</div>
-                <p class="field-text" data-i18n="p1-text-1">
-                  Desarrollo de un panel de control corporativo (Single Page Application) que se ejecuta enteramente en el navegador del cliente. Simula un entorno de gestión de almacén con operaciones CRUD y visualización de KPIs en tiempo real.
-                </p>
-              </div>
-              <div>
-                <div class="field-label" data-i18n="p1-label-3">Retos técnicos (WebAssembly & SQL)</div>
-                <p class="field-text" data-i18n="p1-text-3">
-                  El sistema integra SQLite compilado a WebAssembly (sql.js). Esto permite ejecutar una base de datos relacional directamente en memoria, aplicando consultas complejas (JOIN, GROUP BY) y generando gráficos dinámicos con Chart.js a partir de los datos.
-                </p>
-              </div>
-            </div>
-            <div class="project-meta">
-              <div class="meta-block">
-                <div class="field-label">Stack</div>
-                <div class="project-stack">
-                  <span class="stack-chip">JavaScript (ES6)</span>
-                  <span class="stack-chip">SQLite (WASM)</span>
-                  <span class="stack-chip">SQL Relacional</span>
-                  <span class="stack-chip">HTML/CSS</span>
-                </div>
-              </div>
-              <div class="meta-block">
-                <div class="field-label" data-i18n="p1-label-4">Prueba técnica</div>
-                <a href="erp-demo.html" target="_blank" class="btn-demo">▶ Abrir Demo Interactiva</a>
-              </div>
-            </div>
+          <div>
+            <div class="field-label" data-i18n="label-hobby">Tiempo libre y Aficiones</div>
+            <p class="field-text" data-i18n="text-hobby">
+              [Comenta brevemente tus aficiones. Esta es la excusa perfecta para mencionar que en tu tiempo libre desarrollas lógicas para videojuegos como un hobby creativo.]
+            </p>
+            <!-- REEMPLAZA EL HREF CON EL NOMBRE DEL ARCHIVO HTML DE TUS VIDEOJUEGOS -->
+            <a href="TU_PAGINA_DE_VIDEOJUEGOS.html" class="btn-demo" data-i18n="btn-games">▶ Curiosidad: Mi perfil de Videojuegos</a>
           </div>
+
         </div>
-
       </div>
     </section>
 
@@ -515,21 +489,19 @@
 <script>
   var translations = {
     'nav-about': 'about_me',
-    'nav-projects': 'projects',
     'nav-tech': 'technologies',
+    'nav-games': 'video_games',
     'subtitle': 'Higher Vocational Diploma in Multiplatform Application Development (DAM)',
     'status': 'Available for corporate roles',
-    'about-text': 'Specialized in creating clean architectures, managing relational databases, and developing efficient multiplatform applications aimed at solving B2B problems and internal tooling.',
-    'h2-projects': 'software/',
     'h2-tech': 'tech_stack',
     'h2-contact': 'Corporate Contact',
-    'p1-title': 'Interactive ERP Dashboard',
-    'p1-tag': 'Completed',
-    'p1-label-1': 'The project',
-    'p1-text-1': 'Development of a corporate dashboard (Single Page Application) that runs entirely in the client\'s browser. It simulates a warehouse management environment with CRUD operations and real-time KPI visualization.',
-    'p1-label-3': 'Technical challenges (WebAssembly & SQL)',
-    'p1-text-3': 'The system does not fake data with simple variables, but integrates SQLite compiled to WebAssembly (sql.js). This allows running a relational database directly in memory, applying complex queries (JOIN, GROUP BY) and generating dynamic charts with Chart.js based on the data.',
-    'p1-label-4': 'Technical demo',
+    'label-who': 'Who am I',
+    'text-who': '[Write your personal intro here. Talk about your passion for software programming and what kind of professional you are.]',
+    'label-edu': 'Education & Skills',
+    'text-edu': '[Detail your DAM studies and how you focus your analytical and technical skills in daily development.]',
+    'label-hobby': 'Free time & Hobbies',
+    'text-hobby': '[Briefly comment on your hobbies. This is the perfect excuse to mention that in your free time you develop game logic as a creative hobby.]',
+    'btn-games': '▶ Curiosity: My Video Games Profile',
     'json-lang': '"core_languages"'
   };
 
