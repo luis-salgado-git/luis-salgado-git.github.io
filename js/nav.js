@@ -1,10 +1,4 @@
-/* ==========================================================
-   nav.js · Comportamiento del menú lateral / barra superior
-   1. Calcula la altura del menú fijo en móvil (--sticky-offset)
-      para que al pulsar un enlace el título no quede tapado.
-   2. Marca como "active" el enlace de la sección visible.
-   3. En móvil, centra la pestaña activa dentro de la barra.
-   ========================================================== */
+
 (function () {
   'use strict';
 
@@ -14,20 +8,19 @@
 
   var mobileQuery = window.matchMedia('(max-width: 760px)');
 
-  // Enlaces internos (#seccion) -> secciones. Se ignoran los que apuntan a otra página.
+
   var links = Array.prototype.slice.call(tree.querySelectorAll('a[href^="#"]'));
   var items = links.map(function (link) {
     return { link: link, section: document.getElementById(link.getAttribute('href').slice(1)) };
   }).filter(function (item) { return item.section; });
 
-  /* 1 · Offset del header fijo */
   function updateOffset() {
     var offset = mobileQuery.matches ? Math.ceil(sidebar.getBoundingClientRect().height) + 8 : 0;
     document.documentElement.style.setProperty('--sticky-offset', offset + 'px');
     return offset;
   }
 
-  /* 3 · Centrar pestaña activa en la barra horizontal */
+
   function centerTab(link) {
     if (!mobileQuery.matches) return;
     var treeRect = tree.getBoundingClientRect();
@@ -36,7 +29,7 @@
     tree.scrollTo({ left: target, behavior: 'smooth' });
   }
 
-  /* 2 · Scroll-spy */
+
   var activeLink = null;
   function setActive(link) {
     if (link === activeLink) return;
@@ -47,14 +40,14 @@
 
   function onScroll() {
     var offset = updateOffset();
-    var line = offset + 80;                      // "línea de lectura" bajo el header
+    var line = offset + 80; 
     var current = items[0];
 
     items.forEach(function (item) {
       if (item.section.getBoundingClientRect().top <= line) current = item;
     });
 
-    // si llegamos al final de la página, activa la última sección
+
     var atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
     if (atBottom) current = items[items.length - 1];
 
