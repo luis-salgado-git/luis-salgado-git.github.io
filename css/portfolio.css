@@ -1,0 +1,497 @@
+/* ==========================================================
+   portfolio.css  ·  Estilos compartidos de software.html y gamedev.html
+   Índice:
+     1. Variables y reset
+     2. Layout (app + sidebar)
+     3. Contenido (secciones, tipografía)
+     4. Componentes (json, proyectos, galería, chips, botones, terminal)
+     5. Responsive (tablet ≤ 820px, móvil ≤ 760px, móvil pequeño ≤ 400px)
+     6. Accesibilidad
+   ========================================================== */
+
+/* ---------- 1. Variables y reset ---------- */
+:root {
+  --bg: #D9E4FF;
+  --panel: #ffffff;
+  --panel-2: #BFD1FF;
+  --border: rgba(133, 164, 242, 0.4);
+  --text: #1F3059;
+  --muted: rgba(31, 48, 89, 0.68);
+  --accent: #15368C;
+  --accent-2: #85A4F2;
+  --line: #85A4F2;
+  --terminal-bg: #1F3059;
+
+  /* lo actualiza js/nav.js con la altura real del menú fijo en móvil */
+  --sticky-offset: 0px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  min-height: 100dvh;
+  line-height: 1.6;
+}
+
+img { max-width: 100%; display: block; }
+
+/* ---------- 2. Layout ---------- */
+.app {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);   /* minmax(0,…) evita desbordes horizontales */
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: 28px 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.sidebar-header {
+  padding: 0 20px 20px 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+.sidebar-header .name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+.sidebar-header .role {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.lang-toggle {
+  margin-top: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--accent);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;       /* quita el retardo/zoom por doble toque */
+}
+.lang-toggle:active { transform: scale(0.96); background: var(--panel-2); }
+
+.file-tree {
+  list-style: none;
+  padding: 0 12px;
+}
+.file-tree li { margin-bottom: 2px; }
+.file-tree a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  color: var(--muted);
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  border-radius: 6px;
+  transition: background .15s, color .15s;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.file-tree a.active { background: var(--panel-2); color: var(--accent); }
+.file-tree .ext { color: var(--accent-2); opacity: .9; }
+
+main {
+  padding: 48px 56px;
+  max-width: 1040px;
+  min-width: 0;
+}
+
+/* ---------- 3. Contenido ---------- */
+section {
+  padding: 36px 0 56px 0;
+  border-bottom: 1px dashed var(--border);
+  /* al pulsar un enlace del menú, el título no queda tapado por el header fijo */
+  scroll-margin-top: var(--sticky-offset);
+}
+section:last-child { border-bottom: none; }
+
+.line-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--line);
+  user-select: none;
+}
+
+h1 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin: 6px 0 4px 0;
+  text-wrap: balance;
+}
+h1 .prompt { color: var(--accent); }
+
+.subtitle {
+  font-size: 16px;
+  color: var(--muted);
+  margin-bottom: 22px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  background: rgba(21, 54, 140, 0.08);
+  border: 1px solid rgba(21, 54, 140, 0.25);
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+.status-badge--spaced { margin-bottom: 30px; }
+.status-badge .pulse {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 rgba(21, 54, 140, 0.6);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(21, 54, 140, 0.5); }
+  70%  { box-shadow: 0 0 0 8px rgba(21, 54, 140, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(21, 54, 140, 0); }
+}
+
+.sobre_mi-text {
+  font-size: 16px;
+  color: var(--text);
+  max-width: 640px;
+  margin-top: 20px;
+}
+
+h2 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--accent);
+  margin-bottom: 28px;
+}
+
+/* ---------- 4. Componentes ---------- */
+
+/* Bloque JSON */
+.json-block {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14.5px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px 28px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.json-block .k { color: var(--accent); }
+.json-block .s { color: var(--accent-2); }
+.json-block .p { color: var(--muted); }
+.json-block .b { color: var(--text); }
+.json-line { white-space: pre; }
+
+/* Proyectos */
+.project-list { display: flex; flex-direction: column; }
+.project-feature {
+  padding: 44px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.project-feature:first-child { padding-top: 0; }
+.project-feature:last-child  { border-bottom: none; padding-bottom: 0; }
+
+.project-media {
+  aspect-ratio: 21 / 9;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.project-media img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Galería con deslizamiento horizontal */
+.project-media.gallery {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-2) transparent;
+}
+.project-media.gallery img {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+}
+.project-media.gallery::-webkit-scrollbar { height: 6px; }
+.project-media.gallery::-webkit-scrollbar-thumb { background: var(--accent-2); border-radius: 4px; }
+
+.media-hint {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+.project-header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+.project-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+.project-tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent);
+  background: rgba(21, 54, 140, 0.08);
+  border: 1px solid rgba(21, 54, 140, 0.2);
+  padding: 3px 9px;
+  border-radius: 4px;
+}
+.project-tag.wip {
+  color: var(--accent-2);
+  background: rgba(133, 164, 242, 0.15);
+  border-color: rgba(133, 164, 242, 0.4);
+}
+
+.project-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 44px;
+  margin-top: 20px;
+}
+.project-body--single { grid-template-columns: minmax(0, 1fr); }
+
+.project-fields { display: flex; flex-direction: column; gap: 20px; }
+
+.field-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--line);
+  margin-bottom: 6px;
+}
+.field-text {
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.75;
+  max-width: 64ch;
+}
+.field-text--small { font-size: 13.5px; }
+
+.project-meta {
+  border-left: 1px solid var(--border);
+  padding-left: 28px;
+}
+.meta-block { margin-bottom: 24px; }
+.meta-block:last-child { margin-bottom: 0; }
+
+.project-stack { display: flex; flex-wrap: wrap; gap: 8px; }
+.stack-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  color: var(--accent);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 5px 11px;
+  border-radius: 20px;
+}
+
+/* Botón */
+.btn-demo {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 18px;
+  background-color: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  border-radius: 6px;
+  transition: background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-demo:active { background-color: #0f2766; }
+
+/* Terminal de contacto */
+.terminal {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  background: var(--terminal-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 22px 26px;
+  color: #D9E4FF;
+  overflow-x: auto;
+}
+.terminal .row { margin-bottom: 10px; display: flex; gap: 10px; flex-wrap: wrap; }
+.terminal .cmd { color: #EDF3FF; }
+.terminal a {
+  color: #85A4F2;
+  text-decoration: none;
+  overflow-wrap: anywhere;      /* emails y URLs largos no rompen el layout */
+  display: inline-block;
+  padding: 2px 0;
+}
+.terminal .out { color: rgba(217, 228, 255, 0.75); padding-left: 20px; margin-bottom: 4px; }
+
+footer {
+  padding: 24px 56px 40px 56px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  color: var(--line);
+}
+
+/* Hover: solo con ratón */
+@media (hover: hover) {
+  .lang-toggle:hover { background: var(--panel-2); }
+  .file-tree a:hover { background: var(--panel-2); color: var(--accent); }
+  .btn-demo:hover { background-color: #0f2766; }
+  .terminal a:hover { text-decoration: underline; }
+}
+
+/* ---------- 5. Responsive ---------- */
+
+/* Tablet */
+@media (max-width: 820px) {
+  .project-body { grid-template-columns: minmax(0, 1fr); }
+  .project-meta {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    padding-left: 0;
+    padding-top: 20px;
+  }
+  .project-media { aspect-ratio: 16 / 10; }
+}
+
+/* Móvil: el sidebar pasa a ser una barra superior fija */
+@media (max-width: 760px) {
+  .app { grid-template-columns: minmax(0, 1fr); }
+
+  .sidebar {
+    height: auto;
+    padding: 12px 0;
+    padding-top: max(12px, env(safe-area-inset-top));
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow: visible;
+  }
+
+  .sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 max(20px, env(safe-area-inset-right)) 10px max(20px, env(safe-area-inset-left));
+    margin-bottom: 6px;
+  }
+  .sidebar-header .name-role { display: flex; flex-direction: column; }
+
+  .lang-toggle {
+    margin-top: 0;
+    min-height: 40px;           /* zona táctil cómoda */
+    min-width: 48px;
+    font-size: 12px;
+  }
+
+  /* menú de pestañas con scroll horizontal */
+  .file-tree {
+    display: flex;
+    overflow-x: auto;
+    padding: 0 max(16px, env(safe-area-inset-right)) 2px max(16px, env(safe-area-inset-left));
+    gap: 6px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .file-tree::-webkit-scrollbar { display: none; }
+  .file-tree li { margin-bottom: 0; flex-shrink: 0; }
+  .file-tree a { padding: 11px 14px; font-size: 13px; }
+
+  main { padding: 24px max(20px, env(safe-area-inset-right)) 24px max(20px, env(safe-area-inset-left)); }
+  section { padding: 24px 0 40px 0; }
+  h1 { font-size: 24px; }
+  h2 { font-size: 12px; margin-bottom: 20px; }
+  .subtitle { font-size: 14px; }
+  .sobre_mi-text { font-size: 15px; }
+  .status-badge--spaced { margin-bottom: 22px; }
+
+  .project-feature { padding: 32px 0; }
+  .project-header { margin-top: 20px; gap: 10px; }
+  .project-title { font-size: 20px; }
+  .project-body { gap: 24px; margin-top: 16px; }
+  .field-text { font-size: 14.5px; line-height: 1.7; }
+
+  .btn-demo { display: block; text-align: center; padding: 14px 18px; }
+
+  .json-block { padding: 16px; font-size: 13px; }
+  .terminal { padding: 16px; font-size: 13px; }
+  .terminal .out { padding-left: 10px; }
+
+  footer { padding: 24px max(20px, env(safe-area-inset-right)) 32px max(20px, env(safe-area-inset-left)); }
+}
+
+/* Móviles pequeños (iPhone SE, Android compactos) */
+@media (max-width: 400px) {
+  h1 { font-size: 21px; }
+  .json-block { font-size: 12px; padding: 14px; }
+  .terminal { font-size: 12.5px; }
+  .project-title { font-size: 18px; }
+  .project-media { aspect-ratio: 4 / 3; }
+}
+
+/* ---------- 6. Accesibilidad ---------- */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.terminal a:focus-visible { outline-color: var(--accent-2); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .status-badge .pulse { animation: none; }
+  * { transition: none !important; }
+}
