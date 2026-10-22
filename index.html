@@ -2,121 +2,18 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#D9E4FF">
 <title>Luis Javier Salgado | Portfolio</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2315368C'/%3E%3Ctext x='50' y='68' font-family='monospace' font-weight='bold' font-size='56' fill='%23ffffff' text-anchor='middle'%3E%26gt;_%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg: #D9E4FF;
-    --terminal-bg: #1F3059;
-    --accent: #15368C;
-    --accent-2: #85A4F2;
-    --text: #EDF3FF;
-    --muted: rgba(217,228,255,0.6);
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  body{
-    background:var(--bg);
-    font-family:'JetBrains Mono', monospace;
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding: 20px;
-  }
-  .hub-container{
-    background:var(--terminal-bg);
-    border-radius: 12px;
-    padding: 40px;
-    width: 100%;
-    max-width: 600px;
-    box-shadow: 0 20px 40px rgba(31,48,89,0.2);
-    color: var(--text);
-  }
-  .header {
-    margin-bottom: 30px;
-    border-bottom: 1px dashed var(--muted);
-    padding-bottom: 20px;
-  }
-  h1 {
-    font-size: 20px;
-    margin-bottom: 8px;
-    color: #ffffff;
-  }
-  .prompt { color: var(--accent-2); }
-  .subtitle {
-    font-size: 13px;
-    color: var(--muted);
-    font-family: 'Inter', sans-serif;
-  }
-  
-  .options {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 20px;
-  }
-  
-  .option-card {
-    display: block;
-    text-decoration: none;
-    background: rgba(217,228,255,0.05);
-    border: 1px solid rgba(133,164,242,0.3);
-    padding: 20px;
-    border-radius: 8px;
-    color: var(--text);
-    transition: all 0.2s ease;
-    cursor: pointer;
-  }
-  
-  .option-card:hover {
-    background: rgba(133,164,242,0.15);
-    border-color: var(--accent-2);
-    transform: translateY(-2px);
-  }
-  
-  .option-title {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .option-title::before {
-    content: '>';
-    color: var(--accent-2);
-  }
-
-  .option-desc {
-    font-size: 13px;
-    color: var(--muted);
-    font-family: 'Inter', sans-serif;
-    padding-left: 20px;
-  }
-
-  .cursor {
-    display: inline-block;
-    width: 8px;
-    height: 18px;
-    background-color: var(--accent-2);
-    vertical-align: middle;
-    animation: blink 1s step-end infinite;
-    margin-left: 4px;
-  }
-  @keyframes blink { 50% { opacity: 0; } }
-
-  @media (max-width: 500px) {
-    .hub-container { padding: 24px; }
-    h1 { font-size: 18px; }
-  }
-</style>
+<link rel="stylesheet" href="css/hub.css">
 </head>
 <body>
 
-  <div class="hub-container">
+  <main class="hub-container">
     <div class="header">
       <h1><span class="prompt">Selecciona tu área de interés:</span></h1>
     </div>
@@ -134,7 +31,7 @@
         <div class="option-desc">Proyectos Indie, Unity 3D/2D</div>
       </a>
     </div>
-  </div>
+  </main>
 
 </body>
 </html>
