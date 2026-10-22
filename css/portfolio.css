@@ -1,15 +1,3 @@
-/* ==========================================================
-   portfolio.css  ·  Estilos compartidos de software.html y gamedev.html
-   Índice:
-     1. Variables y reset
-     2. Layout (app + sidebar)
-     3. Contenido (secciones, tipografía)
-     4. Componentes (json, proyectos, galería, chips, botones, terminal)
-     5. Responsive (tablet ≤ 820px, móvil ≤ 760px, móvil pequeño ≤ 400px)
-     6. Accesibilidad
-   ========================================================== */
-
-/* ---------- 1. Variables y reset ---------- */
 :root {
   --bg: #D9E4FF;
   --panel: #ffffff;
@@ -22,7 +10,7 @@
   --line: #85A4F2;
   --terminal-bg: #1F3059;
 
-  /* lo actualiza js/nav.js con la altura real del menú fijo en móvil */
+
   --sticky-offset: 0px;
 }
 
@@ -45,10 +33,10 @@ body {
 
 img { max-width: 100%; display: block; }
 
-/* ---------- 2. Layout ---------- */
+
 .app {
   display: grid;
-  grid-template-columns: 240px minmax(0, 1fr);   /* minmax(0,…) evita desbordes horizontales */
+  grid-template-columns: 240px minmax(0, 1fr); 
   min-height: 100vh;
 }
 
@@ -95,7 +83,7 @@ img { max-width: 100%; display: block; }
   cursor: pointer;
   transition: background .15s, transform .1s;
   -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;       /* quita el retardo/zoom por doble toque */
+  touch-action: manipulation;     
 }
 .lang-toggle:active { transform: scale(0.96); background: var(--panel-2); }
 
@@ -127,11 +115,10 @@ main {
   min-width: 0;
 }
 
-/* ---------- 3. Contenido ---------- */
+
 section {
   padding: 36px 0 56px 0;
   border-bottom: 1px dashed var(--border);
-  /* al pulsar un enlace del menú, el título no queda tapado por el header fijo */
   scroll-margin-top: var(--sticky-offset);
 }
 section:last-child { border-bottom: none; }
@@ -200,9 +187,6 @@ h2 {
   margin-bottom: 28px;
 }
 
-/* ---------- 4. Componentes ---------- */
-
-/* Bloque JSON */
 .json-block {
   font-family: 'JetBrains Mono', monospace;
   font-size: 14.5px;
@@ -219,7 +203,6 @@ h2 {
 .json-block .b { color: var(--text); }
 .json-line { white-space: pre; }
 
-/* Proyectos */
 .project-list { display: flex; flex-direction: column; }
 .project-feature {
   padding: 44px 0;
@@ -240,7 +223,6 @@ h2 {
 }
 .project-media img { width: 100%; height: 100%; object-fit: cover; }
 
-/* Galería con deslizamiento horizontal */
 .project-media.gallery {
   overflow-x: auto;
   overflow-y: hidden;
@@ -341,7 +323,6 @@ h2 {
   border-radius: 20px;
 }
 
-/* Botón */
 .btn-demo {
   display: inline-block;
   margin-top: 10px;
@@ -357,7 +338,6 @@ h2 {
 }
 .btn-demo:active { background-color: #0f2766; }
 
-/* Terminal de contacto */
 .terminal {
   font-family: 'JetBrains Mono', monospace;
   font-size: 14px;
@@ -373,7 +353,7 @@ h2 {
 .terminal a {
   color: #85A4F2;
   text-decoration: none;
-  overflow-wrap: anywhere;      /* emails y URLs largos no rompen el layout */
+  overflow-wrap: anywhere;      
   display: inline-block;
   padding: 2px 0;
 }
@@ -386,7 +366,7 @@ footer {
   color: var(--line);
 }
 
-/* Hover: solo con ratón */
+
 @media (hover: hover) {
   .lang-toggle:hover { background: var(--panel-2); }
   .file-tree a:hover { background: var(--panel-2); color: var(--accent); }
@@ -394,7 +374,6 @@ footer {
   .terminal a:hover { text-decoration: underline; }
 }
 
-/* ---------- 5. Responsive ---------- */
 
 /* Tablet */
 @media (max-width: 820px) {
@@ -408,7 +387,7 @@ footer {
   .project-media { aspect-ratio: 16 / 10; }
 }
 
-/* Móvil: el sidebar pasa a ser una barra superior fija */
+
 @media (max-width: 760px) {
   .app { grid-template-columns: minmax(0, 1fr); }
 
@@ -433,12 +412,12 @@ footer {
 
   .lang-toggle {
     margin-top: 0;
-    min-height: 40px;           /* zona táctil cómoda */
+    min-height: 40px;           
     min-width: 48px;
     font-size: 12px;
   }
 
-  /* menú de pestañas con scroll horizontal */
+
   .file-tree {
     display: flex;
     overflow-x: auto;
@@ -474,7 +453,7 @@ footer {
   footer { padding: 24px max(20px, env(safe-area-inset-right)) 32px max(20px, env(safe-area-inset-left)); }
 }
 
-/* Móviles pequeños (iPhone SE, Android compactos) */
+
 @media (max-width: 400px) {
   h1 { font-size: 21px; }
   .json-block { font-size: 12px; padding: 14px; }
@@ -483,7 +462,7 @@ footer {
   .project-media { aspect-ratio: 4 / 3; }
 }
 
-/* ---------- 6. Accesibilidad ---------- */
+
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
