@@ -1,6 +1,3 @@
-/* ==========================================================
-   hub.css  ·  Estilos de index.html (pantalla de selección)
-   ========================================================== */
 
 :root {
   --bg: #D9E4FF;
@@ -19,11 +16,11 @@ body {
   background: var(--bg);
   font-family: 'JetBrains Mono', monospace;
   min-height: 100vh;
-  min-height: 100dvh;           /* altura real en móvil (barra del navegador) */
+  min-height: 100dvh;           
   display: flex;
   align-items: center;
   justify-content: center;
-  /* respeta el notch / barras del sistema */
+
   padding:
     max(20px, env(safe-area-inset-top))
     max(20px, env(safe-area-inset-right))
@@ -75,7 +72,7 @@ h1 {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Hover solo en dispositivos con ratón (evita el "hover pegado" en táctil) */
+
 @media (hover: hover) {
   .option-card:hover {
     background: rgba(133, 164, 242, 0.15);
@@ -83,7 +80,7 @@ h1 {
     transform: translateY(-2px);
   }
 }
-/* Feedback al tocar */
+
 .option-card:active {
   background: rgba(133, 164, 242, 0.2);
   border-color: var(--accent-2);
@@ -113,7 +110,6 @@ h1 {
   padding-left: 20px;
 }
 
-/* ---------- Móvil ---------- */
 @media (max-width: 500px) {
   .hub-container { padding: 24px 20px; }
   h1 { font-size: 18px; }
